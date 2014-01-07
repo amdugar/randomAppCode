@@ -12,7 +12,7 @@ caps["browserstack.debug"] = "true"
 caps[:name] = "Testing Selenium 2 with Ruby on BrowserStack"
 
 driver = Selenium::WebDriver.for(:remote,
-                                 :url => "http://AmitDugar1:5BDGWT7Ux90gDRr7WDBM@hub.browserstack.com/wd/hub",
+                                 :url => "http://username:key@hub.browserstack.com/wd/hub",
                                  :desired_capabilities => caps)
 session_id = driver.instance_variable_get("@bridge").instance_variable_get("@session_id")
 file.each do |line|
@@ -25,7 +25,7 @@ file.each do |line|
       json = json + " " + split[i] 
       i+=1
     end
-  puts("REQUEST: curl -L --max-redirs 20 -v -i -H \'Accept: application/json\' -X #{split[0]} http://AmitDugar1:5BDGWT7Ux90gDRr7WDBM@hub.browserstack.com/wd/hub#{split[1]} -d \'#{json.strip}\'") 
-  `curl -L --max-redirs 20 -v -i -H \'Accept: application/json\' -X #{split[0]} http://AmitDugar1:5BDGWT7Ux90gDRr7WDBM@hub.browserstack.com/wd/hub#{split[1]} -d \'#{json.strip}\'`
+  puts("REQUEST: curl -L --max-redirs 20 -v -i -H \'Accept: application/json\' -X #{split[0]} http://usersname:key@hub.browserstack.com/wd/hub#{split[1]} -d \'#{json.strip}\'") 
+  `curl -L --max-redirs 20 -v -i -H \'Accept: application/json\' -X #{split[0]} http://usernam:key@hub.browserstack.com/wd/hub#{split[1]} -d \'#{json.strip}\'`
 end
 driver.quit
