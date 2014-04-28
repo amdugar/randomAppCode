@@ -4,20 +4,20 @@ require 'selenium-webdriver'
 require 'pry'
 
 ## Variables
-@username = "user_name"
-@key = "key"
-@session_id = ARGV[0]
-@user_id = ARGV[1]
-@user_define = ARGV[2].to_i || 0
+@username = ARGV[0]
+@key = ARGV[1]
+@session_id = ARGV[2]
+@user_id = ARGV[3]
+@user_define = ARGV[4].to_i || 0
 @test_logs = ""
 @capabilities = true
 
-if ARGV.size < 2
-  puts "Usage ruby replay_script.rb <session_id> <user_id> <user_define 0 || 1> <browser> <browser_version> <os> <os_version>" 
+if ARGV.size < 4
+  puts "Usage ruby replay_script.rb <username> <key> <session_id> <user_id> <user_define 0 || 1> <browser> <browser_version> <os> <os_version>" 
   exit 
 end
-if @user_define == 1 && ARGV.size < 7
-  puts "Usage ruby replay_script.rb <session_id> <user_id> <user_define 0 || 1> <browser> <browser_version> <os> <os_version>" 
+if @user_define == 1 && ARGV.size < 9
+  puts "Usage ruby replay_script.rb <username> <key> <session_id> <user_id> <user_define 0 || 1> <browser> <browser_version> <os> <os_version>" 
 end
 
 # Input capabilities
@@ -51,10 +51,10 @@ def modify_capabilities(json)
   @capabilities = false
   mod_json = JSON.parse(json.strip)
   if (@user_define == 1)
-    @browser = ARGV[3] || ""
-    @browser_version = ARGV[4] || ""
-    @os = ARGV[5] || ""
-    @os_version = ARGV[6] || ""
+    @browser = ARGV[5] || ""
+    @browser_version = ARGV[6] || ""
+    @os = ARGV[7] || ""
+    @os_version = ARGV[8] || ""
     @browserName = ""
     @version = ""
     @platform = ""
@@ -105,7 +105,6 @@ end
 
 def simulate_test
   @test_logs << "\nDELETE /session/#{@session_id}"
-  puts @test_logs
   start_time = Time.now
   @test_logs.each do |line|
     line.sub!(@session_id, @my_session_id)
