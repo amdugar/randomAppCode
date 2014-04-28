@@ -4,13 +4,21 @@ require 'selenium-webdriver'
 require 'pry'
 
 ## Variables
-@username = "AmitDugar1"
-@key = "5BDGWT7Ux90gDRr7WDBM"
+@username = "user_name"
+@key = "key"
 @session_id = ARGV[0]
 @user_id = ARGV[1]
 @user_define = ARGV[2].to_i || 0
 @test_logs = ""
 @capabilities = true
+
+if ARGV.size < 2
+  puts "Usage ruby replay_script.rb <session_id> <user_id> <user_define 0 || 1> <browser> <browser_version> <os> <os_version>" 
+  exit 
+end
+if @user_define == 1 && ARGV.size < 7
+  puts "Usage ruby replay_script.rb <session_id> <user_id> <user_define 0 || 1> <browser> <browser_version> <os> <os_version>" 
+end
 
 # Input capabilities
 
